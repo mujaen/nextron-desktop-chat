@@ -1,0 +1,20 @@
+{
+  "name": "nextron-desktop-chat",
+  "version": "1.0.0",
+  "description": "파이어베이스를 사용하여 넥스트론 환경의 데스크톱 채팅앱을 구현합니다",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mujaen/nextron-desktop-chat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mujaen/nextron-desktop-chat/issues"
+  },
+  "homepage": "https://github.com/mujaen/nextron-desktop-chat#readme"
+}
