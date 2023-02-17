@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { firebaseClientAuth } from '../firebase/firebaseClient'
-import { useRouter } from 'next/router'
 
 function Login() {
   const router = useRouter()
@@ -36,23 +39,31 @@ function Login() {
             </svg>
           </div>
           <input
-            className="w-full p-2 border border-slate-400 border-solid"
+            className="w-full p-2 border border-slate-400 border-solid text-sm placeholder:text-sm"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
           />
           <input
-            className="w-full p-2 mt-[-1px] border border-slate-400 border-solid"
+            className="w-full p-2 mt-[-1px] border border-slate-400 border-solid text-sm placeholder:text-sm"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
           />
           <button
-            className="w-full mt-2 pt-2 pb-2 border border-slate-400 border-solid rounded bg-gray-100 text-sm"
+            className="w-full mt-2 pt-2 pb-2 border border-slate-400 border-solid rounded bg-gray-100 text-sm font-bold"
             onClick={logIn}
           >
             로그인
           </button>
+          <div className="flex mt-6">
+            <span className="text-slate-400 text-sm mr-1">계정이 없으신가요?</span>
+            <Link legacyBehavior href="/join">
+              <a className="text-white text-sm" title="회원가입 하러가기">
+                가입하기
+              </a>
+            </Link>
+          </div>
         </div>
       </div>
     </React.Fragment>
