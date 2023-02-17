@@ -1,20 +1,32 @@
 {
   "name": "nextron-desktop-chat",
   "version": "1.0.0",
-  "description": "파이어베이스를 사용하여 넥스트론 환경의 데스크톱 채팅앱을 구현합니다",
-  "main": "index.js",
+  "main": "app/background.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nextron",
+    "build": "nextron build",
+    "postinstall": "electron-builder install-app-deps"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mujaen/nextron-desktop-chat.git"
+  "dependencies": {
+    "electron-serve": "^1.1.0",
+    "electron-store": "^8.1.0",
+    "firebase": "^9.15.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mujaen/nextron-desktop-chat/issues"
-  },
-  "homepage": "https://github.com/mujaen/nextron-desktop-chat#readme"
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.26",
+    "autoprefixer": "^10.4.13",
+    "electron": "^21.3.3",
+    "electron-builder": "^23.6.0",
+    "firebase-admin": "^11.5.0",
+    "next": "^13.1.2",
+    "nextron": "^8.4.0",
+    "nookies": "^2.5.2",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.2.4",
+    "typescript": "^4.9.4"
+  }
 }
