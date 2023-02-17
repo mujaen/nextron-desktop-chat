@@ -1,24 +1,23 @@
-import React, { useState } from "react";
-import { signOut } from "firebase/auth";
-import Link from "next/link";
-import { removeTokenCookie } from "../hooks/useAuthorize";
-import { firebaseClientAuth } from "../firebase/firebaseClient";
-import { useRouter } from "next/router";
+import React, { useState } from 'react'
+import { signOut } from 'firebase/auth'
+import Link from 'next/link'
+import { firebaseClientAuth } from '../firebase/firebaseClient'
+import { useRouter } from 'next/router'
 
 function Header() {
-  const router = useRouter();
+  const router = useRouter()
   const user = {
-    email: 'ssss'
+    email: 'ssss',
   }
   const logOut = () => {
     signOut(firebaseClientAuth)
       .then(() => {
-        router.push("/");
+        router.push('/')
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   return (
     <div>
@@ -34,7 +33,7 @@ function Header() {
       {user && <div>Welcome {user.email}</div>}
       <button onClick={logOut}>로그아웃</button>
     </div>
-  );
+  )
 }
 
-export default Header;
+export default Header
