@@ -13,7 +13,7 @@ function Profile() {
   const logOut = () => {
     signOut(firebaseClientAuth)
       .then(() => {
-        router.push('/')
+        router.push('/login')
       })
       .catch((error) => {
         console.log(error)

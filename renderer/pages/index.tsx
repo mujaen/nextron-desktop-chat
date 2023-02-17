@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
+
 import { GetServerSidePropsContext } from 'next'
-import Layout from '../components/Layout'
-import nookies from 'nookies'
+import Link from 'next/link'
+
 import { admin } from '../firebase/firebaseAdmin'
 import { db } from '../firebase/firebaseClient'
 import { collection, getDocs } from 'firebase/firestore'
+import nookies from 'nookies'
+
+import Layout from '../components/Layout'
 
 interface Chat {
   chatText: string
@@ -18,16 +20,11 @@ interface HomeProps {
 
 function HomePage({ chats }: HomeProps) {
   return (
-    <React.Fragment>
-      <Head>
-        <title>Index - Nextron (with-typescript)</title>
-      </Head>
-      <Layout>
-        <Link legacyBehavior href="/login">
-          <a>Go to join page</a>
-        </Link>
-      </Layout>
-    </React.Fragment>
+    <Layout>
+      <Link legacyBehavior href="/login">
+        <a>Go to join page</a>
+      </Link>
+    </Layout>
   )
 }
 

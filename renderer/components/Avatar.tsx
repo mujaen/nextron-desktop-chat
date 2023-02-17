@@ -3,15 +3,15 @@ import React from 'react'
 interface AvatarProps {
   src: string
   alt: string
-  size: AvatarSizeProps
+  size?: AvatarSizeType
 }
 
-interface AvatarSizeProps {
+type AvatarSizeType = {
   width: number
   height: number
 }
 
-function Avatar({ src, alt = '', size = { width: 40, height: 40 } }) {
+function Avatar({ src, alt = '', size = { width: 40, height: 40 } }: AvatarProps) {
   return (
     <div className="overflow-hidden rounded-lg">
       <img src={src} alt={alt} width={size.width} height={size.height} />
