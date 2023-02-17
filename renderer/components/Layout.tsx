@@ -3,10 +3,10 @@ import Header from './Header'
 
 function Layout({ children }: any) {
   return (
-    <>
+    <div className="flex">
       <Header />
-      {children}
-    </>
+      <div className="w-[calc(100%-4rem)]">{children}</div>
+    </div>
   )
 }
 

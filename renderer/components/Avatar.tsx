@@ -1,0 +1,22 @@
+import React from 'react'
+
+interface AvatarProps {
+  src: string
+  alt: string
+  size: AvatarSizeProps
+}
+
+interface AvatarSizeProps {
+  width: number
+  height: number
+}
+
+function Avatar({ src, alt = '', size = { width: 40, height: 40 } }) {
+  return (
+    <div className="overflow-hidden rounded-lg">
+      <img src={src} alt={alt} width={size.width} height={size.height} />
+    </div>
+  )
+}
+
+export default Avatar
