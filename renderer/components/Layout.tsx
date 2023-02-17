@@ -1,5 +1,5 @@
-import { Children } from "react"
-import Header from "./Header"
+import { Children } from 'react'
+import Header from './Header'
 
 function Layout({ children }: any) {
   return (

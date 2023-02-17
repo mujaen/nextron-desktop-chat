@@ -1,9 +1,9 @@
-import { GetServerSidePropsContext } from "next"
+import { GetServerSidePropsContext } from 'next'
 
-import { db } from "../../firebase/firebaseClient"
-import { collection, getDocs } from "firebase/firestore"
+import { db } from '../../firebase/firebaseClient'
+import { collection, getDocs } from 'firebase/firestore'
 
-import Channel from "../../components/Channel";
+import Channel from '../../components/Channel'
 
 interface ChatPageProps {
   pageId: string
@@ -11,10 +11,12 @@ interface ChatPageProps {
 }
 
 const ChatPage = ({ pageId, chatDocs }: ChatPageProps) => {
-  return <Channel id={pageId} chats={chatDocs} />;
-};
+  return <Channel id={pageId} chats={chatDocs} />
+}
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext): Promise<{ props: {}}> => {
+export const getServerSideProps = async (
+  ctx: GetServerSidePropsContext,
+): Promise<{ props: {} }> => {
   try {
     const id = ctx.query['id']
     const docRef = await getDocs(collection(db, `collection-${id}`))
@@ -23,22 +25,22 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext): Promis
       return {
         chatText: doc.data().text,
       }
-    }) 
+    })
 
     return {
       props: {
         pageId: id,
-        chatDocs: chatList
-      } 
+        chatDocs: chatList,
+      },
     }
   } catch {
-    ctx.res.writeHead(302, { Location: '/' });
-    ctx.res.end();
+    ctx.res.writeHead(302, { Location: '/' })
+    ctx.res.end()
 
     return {
-      props: {} 
+      props: {},
     }
   }
 }
 
-export default ChatPage;
+export default ChatPage

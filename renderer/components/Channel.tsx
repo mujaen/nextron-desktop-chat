@@ -1,19 +1,14 @@
-import { useState } from "react"
-import Message from "./Message"
+import { useState } from 'react'
+import Message from './Message'
 
-import { db } from "../firebase/firebaseClient"
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-} from "firebase/firestore"
+import { db } from '../firebase/firebaseClient'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 function Channel({ id, chats }) {
-  const [newMessage, setNewMessage] = useState<string>("")
+  const [newMessage, setNewMessage] = useState<string>('')
   const docRef = collection(db, `collection-${id}`)
 
   console.log(chats)
-
 
   const handleOnChange = (e) => {
     setNewMessage(e.target.value)
@@ -29,9 +24,9 @@ function Channel({ id, chats }) {
   }
 
   const message = {
-    profile: "1234",
-    nick: "aaaa",
-    message: "xxxx",
+    profile: '1234',
+    nick: 'aaaa',
+    message: 'xxxx',
     createAt: null,
   }
 
@@ -39,7 +34,7 @@ function Channel({ id, chats }) {
     <div>
       <div>
         <ul>
-          {chats.map(chat => {
+          {chats.map((chat) => {
             return (
               <li key={chat.chatText}>
                 <Message
