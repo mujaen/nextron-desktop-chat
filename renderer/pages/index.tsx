@@ -21,7 +21,7 @@ interface HomeProps {
 function HomePage({ chats }: HomeProps) {
   return (
     <Layout>
-      <Link legacyBehavior href="/login">
+      <Link legacyBehavior href="/chat/1">
         <a>Go to join page</a>
       </Link>
     </Layout>

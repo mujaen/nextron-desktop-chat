@@ -42,12 +42,14 @@ function Login() {
             className="w-full p-2 border border-slate-400 border-solid text-sm placeholder:text-sm"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="이메일을 입력해 주세요"
             type="email"
           />
           <input
             className="w-full p-2 mt-[-1px] border border-slate-400 border-solid text-sm placeholder:text-sm"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="비밀번호를 입력해 주세요"
             type="password"
           />
           <button

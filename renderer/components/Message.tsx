@@ -1,9 +1,8 @@
-function Message({ profile, nick, message, createAt }) {
+function Message({ nick, message, createAt }) {
   if (!message) return null
 
   return (
     <div>
-      <div>{profile}</div>
       <div>{nick}</div>
       <div>{message}</div>
       <time>{createAt}</time>

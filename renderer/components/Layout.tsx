@@ -5,7 +5,7 @@ function Layout({ children }: any) {
   return (
     <div className="flex">
       <Header />
-      <div className="w-[calc(100%-4rem)]">{children}</div>
+      <div className="w-[calc(100%-4rem)] p-3">{children}</div>
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import Link from 'next/link'
 
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { firebaseClientAuth } from '../firebase/firebaseClient'
 import { useRouter } from 'next/router'
 
@@ -23,13 +23,8 @@ function Join() {
         // Signed in
         const user = userCredential.user
 
-        if (!user.emailVerified) {
-          alert('이메일을 정확히 입력해 주세요!')
-          return
-        }
-
-        alert('Account has been created.' + 'Email:' + userCredential.user.email)
-        router.push('/')
+        alert('Account has been created.' + 'Email:' + user.email)
+        router.push('/profile')
       })
       .catch((error) => {
         const errorCode = error.code
@@ -59,7 +54,7 @@ function Join() {
             </svg>
           </div>
           <input
-            className="w-full p-2 border border-slate-400 border-solid text-sm placeholder:text-sm"
+            className="w-full p-2 mt-5 border border-slate-400 border-solid text-sm placeholder:text-sm"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="이메일을 입력해 주세요"
