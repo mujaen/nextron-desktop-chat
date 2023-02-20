@@ -3,7 +3,10 @@ import { useAuthContext } from '../context/AuthProvider'
 import Message from './Message'
 
 import { db } from '../firebase/firebaseClient'
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { collection, addDoc, serverTimestamp, orderBy, limit, query } from 'firebase/firestore'
+
+import { useFirebaseQuery } from '../hook/useFirebaseQuery'
+import { formatDate } from '../utils/date'
 
 function Channel({ id }) {
   const [newMessage, setNewMessage] = useState<string>('')
@@ -18,14 +21,14 @@ function Channel({ id }) {
     e.preventDefault()
 
     addDoc(docRef, {
-      displayName: user.displayName,
+      displayName: '',
       photoURL: '',
       message: newMessage,
       createdAt: serverTimestamp(),
     })
   }
 
-  const chats = [{ message: '', displayName: '', createdAt: '2023-02-20' }]
+  const chats = useFirebaseQuery(query(docRef, orderBy('createdAt'), limit(100)))
 
   return (
     <div>
@@ -38,7 +41,7 @@ function Channel({ id }) {
                   <Message
                     nick={chat.displayName}
                     message={chat.message}
-                    createdAt={chat.createdAt}
+                    createdAt={formatDate(chat.createdAt)}
                   />
                 </li>
               )
