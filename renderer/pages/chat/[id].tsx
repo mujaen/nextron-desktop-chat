@@ -1,17 +1,29 @@
 import { GetServerSidePropsContext } from 'next'
 
 import { db } from '../../firebase/firebaseClient'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, orderBy, limit, query } from 'firebase/firestore'
+
+import { formatDate } from '../../utils/date'
 
 import Channel from '../../components/Channel'
 
 interface ChatPageProps {
-  pageId: string
-  chatDocs: string[]
+  pageId: StringConstructor
 }
 
-const ChatPage = ({ pageId, chatDocs }: ChatPageProps) => {
-  return <Channel id={pageId} chats={chatDocs} />
+const ChatPage = ({ pageId }: ChatPageProps) => {
+  // const docRef = getDocs(collection(db, `collection-${pageId}`))
+
+  // const chatList = docRef.docs.map((doc) => {
+  //   return {
+  //     photoURL: doc.data().photoURL,
+  //     displayName: doc.data().displayName,
+  //     message: doc.data().message,
+  //     createdAt: formatDate(doc.data().createdAt),
+  //   }
+  // })
+
+  return <Channel id={pageId} />
 }
 
 export const getServerSideProps = async (
@@ -19,18 +31,10 @@ export const getServerSideProps = async (
 ): Promise<{ props: {} }> => {
   try {
     const id = ctx.query['id']
-    const docRef = await getDocs(collection(db, `collection-${id}`))
-
-    const chatList = docRef.docs.map((doc) => {
-      return {
-        chatText: doc.data().text,
-      }
-    })
 
     return {
       props: {
         pageId: id,
-        chatDocs: chatList,
       },
     }
   } catch {

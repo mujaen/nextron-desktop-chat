@@ -23,6 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
     "autoprefixer": "^10.4.13",
+    "date-fns": "^2.29.3",
     "electron": "^21.3.3",
     "electron-builder": "^23.6.0",
     "eslint": "^8.33.0",

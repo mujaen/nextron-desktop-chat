@@ -33,9 +33,9 @@ export const getServerSideProps = async (
 ): Promise<{ props: {} }> => {
   try {
     const cookies = nookies.get(ctx)
-    const token = await admin.auth().verifyIdToken(cookies.token)
+    const decodedToken = await admin.auth().verifyIdToken(cookies.token)
 
-    const { uid } = token
+    const { uid } = decodedToken
 
     const docRef = await getDocs(collection(db, uid))
 

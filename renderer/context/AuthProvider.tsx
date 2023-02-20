@@ -1,14 +1,14 @@
-import React, { useState, useMemo, useEffect, createContext } from 'react'
-import { User } from 'firebase/auth'
+import React, { useState, useMemo, useEffect, useContext, createContext } from 'react'
+import { User, getAuth } from 'firebase/auth'
 import { firebaseClientAuth } from '../firebase/firebaseClient'
 import nookies from 'nookies'
 
-const AuthContext = createContext<{ user: User | null }>({
+const AuthContext = createContext<{ user: Pick<User, 'displayName' | 'photoURL'> | null }>({
   user: null,
 })
 
 const AuthProvider = ({ children }) => {
-  const [userState, setUserState] = useState<User | null>(null)
+  const [userState, setUserState] = useState<Pick<User, 'displayName' | 'photoURL'> | null>(null)
 
   const user = useMemo(
     () => ({
@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
   )
 
   useEffect(() => {
-    return firebaseClientAuth.onIdTokenChanged(async (user) => {
+    return firebaseClientAuth.onAuthStateChanged(async (user) => {
       if (!user) {
         setUserState(null)
         nookies.set(null, 'token', '', {
@@ -31,7 +31,10 @@ const AuthProvider = ({ children }) => {
         return
       }
 
-      setUserState(user)
+      setUserState({
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      })
       const token = await user.getIdToken()
       nookies.destroy(null, 'token')
       nookies.set(null, 'token', token, {
@@ -44,7 +47,20 @@ const AuthProvider = ({ children }) => {
     })
   }, [])
 
+  useEffect(() => {
+    const refreshToken = setInterval(async () => {
+      const { currentUser } = getAuth()
+      if (currentUser) await currentUser.getIdToken(true)
+    }, 10 * 60 * 1000)
+
+    return () => clearInterval(refreshToken)
+  }, [])
+
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>
+}
+
+export const useAuthContext = () => {
+  return useContext(AuthContext)
 }
 
 export default AuthProvider

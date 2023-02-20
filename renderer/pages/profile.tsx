@@ -5,12 +5,15 @@ import { useRouter } from 'next/router'
 import { signOut, updateProfile } from 'firebase/auth'
 import { firebaseClientAuth } from '../firebase/firebaseClient'
 
+import { useAuthContext } from '../context/AuthProvider'
+
 import Layout from '../components/Layout'
 
 function Profile() {
   const router = useRouter()
-  const displayName = firebaseClientAuth.currentUser.displayName
-  const [name, setName] = useState<string>(displayName ? displayName : '')
+  const { user } = useAuthContext()
+  const displayName = user?.displayName ? user?.displayName : ''
+  const [name, setName] = useState<string>(displayName)
 
   const logOut = (): void => {
     signOut(firebaseClientAuth)
@@ -26,6 +29,12 @@ function Profile() {
     updateProfile(firebaseClientAuth.currentUser, {
       displayName: name,
     })
+      .then(() => {
+        alert('닉네임이 변경되었습니다!')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   return (

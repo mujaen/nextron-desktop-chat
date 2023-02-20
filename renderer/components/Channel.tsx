@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { useAuthContext } from '../context/AuthProvider'
 import Message from './Message'
 
-import { db, firebaseClientAuth } from '../firebase/firebaseClient'
+import { db } from '../firebase/firebaseClient'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
-function Channel({ id, chats }) {
+function Channel({ id }) {
   const [newMessage, setNewMessage] = useState<string>('')
   const docRef = collection(db, `collection-${id}`)
+  const { user } = useAuthContext()
 
   const handleOnChange = (e) => {
     setNewMessage(e.target.value)
@@ -16,29 +18,31 @@ function Channel({ id, chats }) {
     e.preventDefault()
 
     addDoc(docRef, {
-      nick: 'jinjer',
-      text: newMessage,
+      displayName: user.displayName,
+      photoURL: '',
+      message: newMessage,
       createdAt: serverTimestamp(),
     })
   }
 
-  const message = {
-    nick: 'aaaa',
-    message: 'xxxx',
-    createAt: null,
-  }
+  const chats = [{ message: '', displayName: '', createdAt: '2023-02-20' }]
 
   return (
     <div>
       <div>
         <ul>
-          {chats.map((chat) => {
-            return (
-              <li key={chat.chatText}>
-                <Message nick={message.nick} message={chat.chatText} createAt={message.createAt} />
-              </li>
-            )
-          })}
+          {chats &&
+            chats.map((chat) => {
+              return (
+                <li key={chat.message}>
+                  <Message
+                    nick={chat.displayName}
+                    message={chat.message}
+                    createdAt={chat.createdAt}
+                  />
+                </li>
+              )
+            })}
         </ul>
       </div>
 

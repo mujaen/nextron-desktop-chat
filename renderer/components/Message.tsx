@@ -1,11 +1,11 @@
-function Message({ nick, message, createAt }) {
+function Message({ nick, message, createdAt }) {
   if (!message) return null
 
   return (
     <div>
       <div>{nick}</div>
       <div>{message}</div>
-      <time>{createAt}</time>
+      <time>{createdAt}</time>
     </div>
   )
 }
