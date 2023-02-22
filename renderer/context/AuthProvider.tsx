@@ -3,12 +3,14 @@ import { User, getAuth } from 'firebase/auth'
 import { firebaseClientAuth } from '../firebase/firebaseClient'
 import nookies from 'nookies'
 
-const AuthContext = createContext<{ user: Pick<User, 'displayName' | 'photoURL'> | null }>({
+const AuthContext = createContext<{ user: Pick<User, 'displayName' | 'photoURL' | 'uid'> | null }>({
   user: null,
 })
 
 const AuthProvider = ({ children }) => {
-  const [userState, setUserState] = useState<Pick<User, 'displayName' | 'photoURL'> | null>(null)
+  const [userState, setUserState] = useState<Pick<User, 'displayName' | 'photoURL' | 'uid'> | null>(
+    null,
+  )
 
   const user = useMemo(
     () => ({
@@ -32,6 +34,7 @@ const AuthProvider = ({ children }) => {
       }
 
       setUserState({
+        uid: user.uid,
         displayName: user.displayName,
         photoURL: user.photoURL,
       })

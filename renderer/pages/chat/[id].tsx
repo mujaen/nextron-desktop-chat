@@ -1,40 +1,28 @@
 import { GetServerSidePropsContext } from 'next'
 
-import { db } from '../../firebase/firebaseClient'
-import { collection, getDocs, orderBy, limit, query } from 'firebase/firestore'
-
-import { formatDate } from '../../utils/date'
+import { useAuthContext } from '../../context/AuthProvider'
 
 import Channel from '../../components/Channel'
 
 interface ChatPageProps {
-  pageId: StringConstructor
+  chatId: string
 }
 
-const ChatPage = ({ pageId }: ChatPageProps) => {
-  // const docRef = getDocs(collection(db, `collection-${pageId}`))
+const ChatPage = ({ chatId }: ChatPageProps) => {
+  const { user } = useAuthContext()
 
-  // const chatList = docRef.docs.map((doc) => {
-  //   return {
-  //     photoURL: doc.data().photoURL,
-  //     displayName: doc.data().displayName,
-  //     message: doc.data().message,
-  //     createdAt: formatDate(doc.data().createdAt),
-  //   }
-  // })
-
-  return <Channel id={pageId} />
+  return <Channel id={chatId} currentUser={user} />
 }
 
 export const getServerSideProps = async (
   ctx: GetServerSidePropsContext,
 ): Promise<{ props: {} }> => {
   try {
-    const id = ctx.query['id']
+    const paramsId = ctx.params.id
 
     return {
       props: {
-        pageId: id,
+        chatId: paramsId,
       },
     }
   } catch {

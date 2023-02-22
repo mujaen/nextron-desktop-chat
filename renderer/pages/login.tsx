@@ -3,11 +3,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-import {
-  signInWithEmailAndPassword,
-  setPersistence,
-  browserSessionPersistence,
-} from 'firebase/auth'
+import { signInWithEmailAndPassword, setPersistence, browserLocalPersistence } from 'firebase/auth'
 import { firebaseClientAuth } from '../firebase/firebaseClient'
 
 function Login() {
@@ -16,7 +12,7 @@ function Login() {
   const [password, setPassword] = useState<string>('tlswjd12098!')
 
   const logIn = async () => {
-    await setPersistence(firebaseClientAuth, browserSessionPersistence).then(() => {
+    await setPersistence(firebaseClientAuth, browserLocalPersistence).then(() => {
       return signInWithEmailAndPassword(firebaseClientAuth, email, password)
     })
 

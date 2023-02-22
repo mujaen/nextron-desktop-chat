@@ -1,17 +1,22 @@
 import React, { useState } from 'react'
-import { useAuthContext } from '../context/AuthProvider'
+
 import Message from './Message'
 
 import { db } from '../firebase/firebaseClient'
 import { collection, addDoc, serverTimestamp, orderBy, limit, query } from 'firebase/firestore'
+import { User } from 'firebase/auth'
 
 import { useFirebaseQuery } from '../hook/useFirebaseQuery'
 import { formatDate } from '../utils/date'
 
-function Channel({ id }) {
+interface ChannelProps {
+  id: string
+  currentUser: Pick<User, 'displayName' | 'photoURL' | 'uid'>
+}
+
+function Channel({ id, currentUser }: ChannelProps) {
   const [newMessage, setNewMessage] = useState<string>('')
   const docRef = collection(db, `collection-${id}`)
-  const { user } = useAuthContext()
 
   const handleOnChange = (e) => {
     setNewMessage(e.target.value)
@@ -21,8 +26,9 @@ function Channel({ id }) {
     e.preventDefault()
 
     addDoc(docRef, {
-      displayName: '',
-      photoURL: '',
+      uid: currentUser?.uid,
+      displayName: currentUser?.displayName,
+      photoURL: currentUser?.photoURL,
       message: newMessage,
       createdAt: serverTimestamp(),
     })
@@ -39,6 +45,7 @@ function Channel({ id }) {
               return (
                 <li key={chat.message}>
                   <Message
+                    id={chat.uid}
                     nick={chat.displayName}
                     message={chat.message}
                     createdAt={formatDate(chat.createdAt)}
