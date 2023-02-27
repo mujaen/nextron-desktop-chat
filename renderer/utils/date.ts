@@ -5,7 +5,7 @@ export const formatDate = (date): string => {
 
   if (date) {
     let amPm = getHours(date.toDate()) < 12 ? '오전' : '오후'
-    formattedDate = amPm + format(date.toDate(), 'HH:mm')
+    formattedDate = amPm + ' ' + format(date.toDate(), 'HH:mm')
   }
 
   return formattedDate

@@ -37,8 +37,8 @@ function Channel({ id, currentUser }: ChannelProps) {
   const chats = useFirebaseQuery(query(docRef, orderBy('createdAt'), limit(100)))
 
   return (
-    <div>
-      <div>
+    <div className="h-screen bg-gray-100">
+      <div className="mb-8">
         <ul>
           {chats &&
             chats.map((chat) => {
@@ -48,6 +48,7 @@ function Channel({ id, currentUser }: ChannelProps) {
                     id={chat.uid}
                     nick={chat.displayName}
                     message={chat.message}
+                    thumb={chat.photoURL}
                     createdAt={formatDate(chat.createdAt)}
                   />
                 </li>
@@ -56,8 +57,13 @@ function Channel({ id, currentUser }: ChannelProps) {
         </ul>
       </div>
 
-      <form onSubmit={handleOnSubmit}>
-        <input value={newMessage} onChange={handleOnChange} type="text" />
+      <form onSubmit={handleOnSubmit} className="fixed bottom-0 w-full bg-white">
+        <input
+          value={newMessage}
+          onChange={handleOnChange}
+          type="text"
+          placeholder="Write a message..."
+        />
         <button type="submit">전송</button>
       </form>
     </div>
