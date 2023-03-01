@@ -9,6 +9,7 @@ import { collection, getDocs } from 'firebase/firestore'
 import nookies from 'nookies'
 
 import Layout from '../components/Layout'
+import Avatar from '../components/Avatar'
 
 interface Chat {
   chatText: string
@@ -21,9 +22,26 @@ interface HomeProps {
 function HomePage({ chats }: HomeProps) {
   return (
     <Layout>
-      <Link legacyBehavior href="/chat/2">
-        <a>Go to join page</a>
-      </Link>
+      <ul>
+        <li>
+          <Link legacyBehavior href="/chat/2">
+            <a>
+              <div className="flex items-start justify-between">
+                <div className="flex items-center">
+                  <div className="min-w-[40px]">
+                    <Avatar src="" alt="도라에몽" />
+                  </div>
+                  <div className="ml-2">
+                    <div className="text-sm text-gray-500">도라에몽</div>
+                    <div className="text-sm">흐음.. 어쩔 수 없군</div>
+                  </div>
+                </div>
+                <div className="text-xs text-gray-400">오후 16:43</div>
+              </div>
+            </a>
+          </Link>
+        </li>
+      </ul>
     </Layout>
   )
 }

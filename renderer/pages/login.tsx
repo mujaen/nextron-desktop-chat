@@ -8,8 +8,8 @@ import { firebaseClientAuth } from '../firebase/firebaseClient'
 
 function Login() {
   const router = useRouter()
-  const [email, setEmail] = useState<string>('mujaen@nate.com')
-  const [password, setPassword] = useState<string>('tlswjd12098!')
+  const [email, setEmail] = useState<string>('nojingu@gmail.com')
+  const [password, setPassword] = useState<string>('')
 
   const logIn = async () => {
     await setPersistence(firebaseClientAuth, browserLocalPersistence).then(() => {
