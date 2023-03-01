@@ -13,7 +13,7 @@ type AvatarSizeType = {
 
 function Avatar({ src, alt = '', size = { width: 40, height: 40 } }: AvatarProps) {
   return (
-    <div className="overflow-hidden rounded-lg">
+    <div className="overflow-hidden rounded-full">
       <img
         src={src ? src : '/images/avatar.jpg'}
         alt={alt}

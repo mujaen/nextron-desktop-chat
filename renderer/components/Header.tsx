@@ -9,7 +9,7 @@ function Header() {
     <header className="h-screen bg-stone-200">
       <Link legacyBehavior href="/profile">
         <a className="block p-3" title="프로필">
-          <Avatar src="/images/avatar.jpg" alt="도라에몽" />
+          <Avatar src="/images/profile.jpg" alt="도라에몽" />
         </a>
       </Link>
       <Link legacyBehavior href="/">
